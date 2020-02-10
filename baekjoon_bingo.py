@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_bingo.txt', 'r')
+sys.stdin = open('./input/input_bingo.txt', 'r')
 
 c_map = []
 for _ in range(5):

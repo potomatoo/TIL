@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_1979.txt','r')
+sys.stdin = open('./input/input_1979.txt','r')
 
 TC = int(input())
 for tc in range(TC):

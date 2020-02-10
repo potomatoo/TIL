@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_4615.txt','r')
+sys.stdin = open('./input/input_4615.txt','r')
 
 def isrange(ty, tx):
     if  0 <= ty <= N-1 and 0 <= tx <= N-1:

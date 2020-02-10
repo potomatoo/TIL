@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_4047.txt', 'r')
+sys.stdin = open('./input/input_4047.txt', 'r')
 
 TC = int(input())
 

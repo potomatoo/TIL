@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_1948.txt','r')
+sys.stdin = open('./input/input_1948.txt','r')
 import datetime
 TC = int(input())
 for tc in range(TC):

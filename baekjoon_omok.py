@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_omok.txt','r')
+sys.stdin = open('./input/input_omok.txt','r')
 
 board = []
 result = []

@@ -1,5 +1,5 @@
-# import sys
-# sys.stdin = open('input_6109.txt','r')
+import sys
+sys.stdin = open('./input/input_6109.txt','r')
 
 def go_right(t_map):
     for y in range(len(t_map)):

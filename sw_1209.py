@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('input_1209.txt', 'r')
+sys.stdin = open('./input/input_1209.txt', 'r')
 
 def my_max(ls):
     mmax = ls[0]

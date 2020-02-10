@@ -1,5 +1,5 @@
 # import sys
-# sys.stdin = open('input_종이자르기.txt','r')
+# sys.stdin = open('./input/input_종이자르기.txt','r')
 
 w, h = map(int,input().split())
 n = int(input())

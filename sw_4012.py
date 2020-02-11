@@ -20,7 +20,7 @@ for tc in range(TC):
                 line.append(c[j])
         if len(line) == N//2:
             c_ls.append(line)
-    
+
     for food1 in c_ls:
         for food2 in c_ls:
             if sorted(food1+food2) != c:

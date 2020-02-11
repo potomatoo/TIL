@@ -1,32 +1,26 @@
 import sys
 sys.stdin = open('./input/input_폭격작전_02.txt','r')
 
-def is_range(ty,tx):
-    if 0 <= ty <= N-1 and 0 <= tx <= N-1:
-        return True
-    else:
-        return False
+T = int(input())
 
-TC = int(input())
-for tc in range(TC):
-    N, M = map(int,input().split())
-
-    b_map = []
-    for _ in range(N):
-        b_map.append(list(map(int,input().split())))
-
-    b_where = []
-    for _ in range(M):
-        b_where.append(list(map(int,input().split())))
-
-    dy = [0,1,1]
-    dx = [1,1,0]
-    changes = []
-    for k in range(len(b_where)):
-        change = []
-        for i in range(3):
-            ty = b_where[k][0] + dy[i]
-            tx = b_where[k][0] + dx[i]
-            change.append(ty)
-        changes.append(change)
-    print(changes)
+for t in range(1, T+1):
+    N, M = map(int, input().split())
+    board = []
+    for n in range(N):
+        board.append(list(map(int, input().split())))
+    bomb = [[0 for _ in range(N)] for _ in range(N)]
+    sum_ = 0
+    for m in range(M):
+        bomb_r, bomb_c, bomb_s = map(int, input().split())
+        r_end = bomb_r + bomb_s
+        c_end = bomb_c + bomb_s
+        if r_end > N:
+            r_end = N
+        if c_end > N:
+            c_end = N
+        for i in range(bomb_r, r_end):
+            for j in range(bomb_c, c_end):
+                if not bomb[i][j]:
+                    sum_ += board[i][j]
+                    bomb[i][j] = 1
+    print('#{0} {1}'.format(t, sum_))

@@ -24,7 +24,7 @@ for _ in range(E):
     u, v = map(int,input().split())
     G[u].append(v)
     G[v].append(u)
-
+print(G)
 # 1번 정점 출발점
 v = 1
 visit[v] = 1

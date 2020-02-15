@@ -9,22 +9,23 @@ for tc in range(10):
     visit = [[0 for _ in range(100)] for _ in range(100)]
     dy = [0, 0, -1]
     dx = [-1, 1, 0]
-    ty = 99
-    tx = 0
+
+    x = 0
+    y = 99
     for i in range(len(ladder[-1])):
         if ladder[-1][i] == 2:
-            tx = i
+            x = i
 
     while True:
-        if ty == 0:
+        if y == 0:
             break
         for i in range(3):
-            ty = ty + dy[i]
-            tx = tx + dx[i]
-            if tx < 0 or tx > 99:
+            ty = y + dy[i]
+            tx = x + dx[i]
+            if ty < 0 or tx < 0 or ty > 99 or tx > 99:
                 continue
-            if ladder[ty][tx] == 1 and visit[ty][tx] == 0:
-                visit[ty][tx] = 1
+            if visit[ty][tx] == 0 and ladder[ty][tx] == 1:
+                visit[y][x] = 1
+                y, x = ty, tx
                 break
-        print(ty,tx)
-
+    print('#{} {}'.format(tc+1,x))

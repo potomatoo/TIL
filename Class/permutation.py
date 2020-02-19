@@ -16,3 +16,4 @@ def permutation(arr):
             i += 1
     return result
 print(permutation([3,4,5]))
+

@@ -5,7 +5,7 @@ order = []  # 실제 순열의 순서를 저장
 
 def backtrack(k):  # k : 함수 호출의 깊이, 지금까지 선택한 요소의 수
 
-    if k == N:  # 단말노드에 도착, 모든 선택이 완료된 상태
+    if k == 2:  # 단말노드에 도착, 모든 선택이 완료된 상태
         print(order)
     else:  # 아직 살 선택이 남은 상태
         for i in range(N):

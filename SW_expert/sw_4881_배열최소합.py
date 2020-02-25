@@ -17,9 +17,6 @@ def dfs(k):
         visit[i] = 0
         result -= n_map[k][i]
 
-
-
-
 TC = int(input())
 for tc in range(TC):
     N = int(input())
@@ -29,3 +26,4 @@ for tc in range(TC):
     result = 0
     dfs(0)
     print('#{} {}'.format(tc+1, min_result))
+

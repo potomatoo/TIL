@@ -17,4 +17,5 @@ while Q:
             visited[tx][ty] = 1
             Q.append((tx, ty))
             D[tx][ty] = D[x][y] + 1
+
 print(D[N-1][M-1])

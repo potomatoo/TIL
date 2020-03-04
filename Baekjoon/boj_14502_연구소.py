@@ -7,7 +7,7 @@ def dfs(y,x,cnt):
         tx = x + dx[i]
         if ty < 0 or tx < 0 or ty > N-1 or tx > M-1:
             continue
-        while i_map[ty][tx] == 0 and visit[ty][tx] == 0:
+        while (i_map[ty][tx] == 0 or i_map[ty][tx] == 2) and visit[ty][tx] == 0:
             dfs(ty,tx,cnt)
 
 N, M = map(int,input().split())
@@ -19,25 +19,19 @@ visit2 = [[0 for _ in range(M)]for _ in range(N)]
 dy = [-1, 1, 0, 0]
 dx = [0, 0, -1, 1]
 cnt = 0
-width = 0
+
 ans = []
-k = 0
+
 for y in range(N):
     for x in range(M):
-        if k == 3:
-            for y in range(N):
-                for x in range(M):
-                    if i_map[y][x] == 2 and visit[y][x] == 0:
-                        cnt += 1
-                        dfs(y, x, cnt)
-                        ans.append(width)
-                        visit[y][x] = 0
-                        k = 0
+        if i_map[y][x] == 2 and visit[y][x] == 0:
+            width = 0
+            cnt += 1
+            dfs(y, x, cnt)
+            ans.append(width)
+print(ans)
 
-        elif i_map[y][x] == 0:
-            i_map[y][x] = 1
-            visit2[y][x] = 1
-            k += 1
+
 
 
 

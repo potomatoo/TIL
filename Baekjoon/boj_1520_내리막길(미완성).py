@@ -1,6 +1,5 @@
 def dfs(y,x):
     global ans
-
     if y == N-1 and x == M-1:
         ans += 1
         return
@@ -10,9 +9,11 @@ def dfs(y,x):
         tx = x + dx[i]
         if ty < 0 or tx < 0 or ty > N-1 or tx > M-1:
             continue
+        if D[ty][tx] == 1: continue
         if mountain[ty][tx] < mountain[y][x] and visit[ty][tx] == 0:
             dfs(ty,tx)
             visit[ty][tx] = 0
+
 
 
 N, M = map(int,input().split())

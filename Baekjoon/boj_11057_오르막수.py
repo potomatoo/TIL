@@ -5,5 +5,6 @@ for i in range(1,N):
     for j in range(10):
         for k in range(j,10):
             dp[i][k] += dp[i-1][j]
-
+for y in range(N):
+    print(*dp[y])
 print(sum(dp[-1]) % 10007)

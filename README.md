@@ -2,7 +2,7 @@
 
 : Today I Learn
 
-1)  Argorism 
+1)  algorithm
 
 - Baekjoon Online Judge
 

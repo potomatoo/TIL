@@ -2,6 +2,7 @@ def permutation(k):
     if k == len(camera):
         for z in range(len(order)):
             print(order[z])
+        print()
 
     else:
         for i in range(len(camera)):
@@ -12,33 +13,32 @@ def permutation(k):
             visit[i] = 0
             order.pop()
 
-N, M = map(int, input().split())
-place = []
+N, M = map(int,input().split())
+field = []
 for _ in range(N):
-    place.append(list(map(int,input().split())))
+    field.append(list(map(int,input().split())))
 
-one = [[(-1, 0)], [(0, 1)], [(1, 0)], [(-1, 0)]]
-two = [[(0, 1), (0, -1)], [(-1, 0), (1, 0)], [(0, 1), (0, -1)], [(-1, 0), (1, 0)]]
-three = [[(-1, 0), (0, 1)], [(0, 1), (1, 0)], [(1, 0), (0, -1)], [(0, -1), (-1, 0)]]
-four = [[(0, -1), (1, 0), (0, 1)], [(1, 0), (0, 1), (-1, 0)], [(-1, 0), (0, -1), (0, 1)], [(-1, 0), (0, -1), (1, 0)]]
-five = [[(1, 0), (-1, 0), (0, 1), (0, -1)],[(1, 0), (-1, 0), (0, 1), (0, -1)], [(1, 0), (-1, 0), (0, 1), (0, -1)],[(1, 0), (-1, 0), (0, 1), (0, -1)]]
+one = [[(1, 0)], [(-1, 0)], [(0, 1)], [(0, -1)]]
+two = [[(1, 0), (-1, 0)], [(0, 1), (0, -1)]]
+three = [[(1, 0), (0, 1)], [(1, 0), (0, -1)], [(0, 1), (-1, 0)], [(0, -1), (-1, 0)]]
+four = [[(0, -1), (1, 0), (0, 1)], [(0, -1), (-1, 0), (0, 1)]]
+five = [[(-1, 0), (1, 0), (0, -1), (0, 1)]]
 
 camera = []
-w_camera = []
 for y in range(N):
     for x in range(M):
-        if place[y][x] == 0 or place[y][x] == 6:
-            continue
-        if place[y][x] == 1:
-            camera.append(one)
-        if place[y][x] == 2:
-            camera.append(two)
-        if place[y][x] == 3:
-            camera.append(three)
-        if place[y][x] == 4:
-            camera.append(four)
-        if place[y][x] == 5:
-            camera.append(five)
-order = []
+       if field[y][x] == 1:
+           camera.append(one)
+       if field[y][x] == 2:
+           camera.append(two)
+       if field[y][x] == 3:
+           camera.append(three)
+       if field[y][x] == 4:
+           camera.append(four)
+       if field[y][x] == 5:
+           camera.append(five)
+
 visit = [0] * len(camera)
+order = []
 permutation(0)
+

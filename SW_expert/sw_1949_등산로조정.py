@@ -19,6 +19,7 @@ def dfs(y,x,cnt):
 
 dy = [-1, 1, 0, 0]
 dx = [0, 0, -1, 1]
+
 TC = int(input())
 for tc in range(TC):
     N, k = map(int,input().split())

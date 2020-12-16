@@ -1,38 +1,28 @@
+from collections import deque
 import sys
-sys.stdin = open('./input/input_1486.txt','r')
 
-def permutation(k):
-    global result
-    global min_result
-    global flag
-    if flag:
-        if result > min_result:
-            return
-        if result == B:
-            min_result = 0
-            flag = False
-        if result > B:
-            min_result = min(result, min_result)
-            return
-        before = -1
-        for i in range(N):
-            if visit[i] == 1 or before == person[i]:
-                continue
-            visit[i] = 1
-            before = person[i]
-            result += person[i]
-            permutation(k+1)
-            visit[i] = 0
-            result -= person[i]
+sys.stdin = open('./input/input_1486.txt', 'r')
 
-TC = int(input())
-for tc in range(TC):
-    N, B = map(int,input().split())
-    person = list(map(int,input().split()))
-    visit = [0] * N
-    order = []
-    min_result = 0xffffffff
-    result = 0
-    flag = True
-    permutation(0)
-    print('#{} {}'.format(tc+1,min_result-B))
+T = int(input())
+for tc in range(1, T + 1):
+    N, B = map(int, input().split())
+    arr = list(map(int, input().split()))
+    Q = deque()
+    Q.append((0, 0))  # arr 요소, 키의 합
+    ans = 0xfffffff
+    while Q:
+        k, s = Q.popleft()  # k번 요소, s: 선택된 요소들의 합
+        if B <= s < ans:
+            ans = s
+            if ans == B:
+                break
+            continue
+        if k == N:
+            continue
+        # k번 요소를 선택
+        if s + arr[k] < ans:
+            Q.append((k + 1, s + arr[k]))
+        # 선택하지 않는 경우
+        Q.append((k + 1, s))
+
+    print('#{} {}'.format(tc, ans - B))

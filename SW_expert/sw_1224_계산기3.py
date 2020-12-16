@@ -1,5 +1,5 @@
-# import sys
-# sys.stdin = open('./input/input_1224.txt','r')
+import sys
+sys.stdin = open('./input/input_1224.txt','r')
 
 N = int(input())
 cal = input()

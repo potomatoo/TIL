@@ -14,10 +14,32 @@ HTTP(Request)  => URLS(urls.py) => View(views.py) <= Template(<filename>.html)
 
 ## 기초 내용
 
+#### 가상환경
+
+```shell
+$ python -m venv venv
+```
+
+```shell
+$ source venv/Script/activate
+```
+
+
+
 ### 설치
 
 ```python
 $ pip install django==2.1.15
+```
+
+
+
+#### gitignore
+
+- .git이 있는 위치에서 실행
+
+```shell
+$ touch gitignore
 ```
 
 

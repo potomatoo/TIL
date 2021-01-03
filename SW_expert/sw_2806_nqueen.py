@@ -16,6 +16,7 @@ def backtrack(idx):
             col[i] = 1
             dia_1[idx+i] = 1
             dia_2[N+i-idx-1] = 1
+
             backtrack(idx+1)
             col[i] = 0
             dia_1[idx + i] = 0

@@ -18,9 +18,6 @@ def solution(n):
                 col[i] = 1
                 dia_1[idx + i] = 1
                 dia_2[n + i - idx - 1] = 1
-                print(idx, i, col)
-                print(idx,i,  dia_1)
-                print(idx,i, dia_2)
                 backtrack(idx + 1)
                 col[i] = 0
                 dia_1[idx + i] = 0

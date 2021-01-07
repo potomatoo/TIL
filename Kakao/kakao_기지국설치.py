@@ -1,59 +1,38 @@
-import itertools
-from copy import deepcopy
-
-n = 16
-stations = [9]
-w = 2
-
 def solution(n, stations, w):
-    board = [1 for _ in range(n)]
-    check = [x for x in range(n)]
-
-    for station in stations:
-        station = station-1
-        board[station] = 0
-
-        for i in range(1, w+1):
-            if station - i >= 0:
-                board[station-i] = 0
-
-            if station + i <= n-1:
-                board[station+i] = 0
-
-    board2 = []
-    for i in range(n):
-        if board[i]:
-            board2.append(check[i])
-
     answer = 0
-    check_stop = False
+    check_len = []
+    start = 0
 
-    for i in range(1, n):
-        coms = list(itertools.combinations(board2, i))
-        for com in coms:
-            c_board = deepcopy(board)
-            for c in com:
-                c_board[c] = 0
-                for j in range(1, w + 1):
-                    if c - j >= 0:
-                        c_board[c - j] = 0
-                    if c + j <= n - 1:
-                        c_board[c + j] = 0
-
-            is_full = True
-            for k in range(n):
-                if c_board[k]:
-                    is_full = False
-                    break
-
-            if is_full:
-                check_stop = True
+    for i in range(len(stations)):
+        stations[i] -= 1
+        min_check = []
+        max_check = []
+        for j in range(w, 0, -1):
+            if min_check and max_check:
                 break
+            if stations[i]-j >= 0:
+                min_check.append(stations[i]-j)
+            if stations[i]+j <= n-1:
+                max_check.append(stations[i]+j)
+        if not min_check:
+            min_check.append(stations[i])
+        if not max_check:
+            max_check.append(stations[i])
+        check_len.append(min_check[0] - start)
+        start = max_check[0] + 1
 
-        if check_stop:
-            answer = i
-            break
+    if start != n:
+        check_len.append(n-start)
+
+    for i in range(len(check_len)):
+        wifi = check_len[i] // ((2*w)+1)
+        wifi_flag = check_len[i] % ((2 * w) + 1)
+        if wifi_flag:
+            answer += (wifi + 1)
+        else:
+            answer += wifi
 
     return answer
 
-print(solution(n, stations, w))
+print(solution(11, [4, 11], 1))
+print(solution(16, [9], 2))

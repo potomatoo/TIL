@@ -97,7 +97,7 @@ def dfs(x, depth):
     for y in graph[x]:
         if visit[y]:
             continue
-        parent[y] = x
+        parent[y][0] = x
         dfs(y, depth + 1)
         
 # 전체 부모 관계를 설정하는 함수
@@ -105,7 +105,7 @@ def set_parent():
     dfs(1, 0) # 루트 노드는 1번 노드
     for i in range(1, LOG):
         for j in range(1, n+1):
-            parent[j][i] = parent[parent[j][i-1][i-1]]
+            parent[j][i] = parent[parent[j][i-1]][i-1]
             
 # A와 B의 최소 공통 조상을 찾는 함수
 def lca(a, b):
@@ -122,8 +122,8 @@ def lca(a, b):
     for i in range(LOG-1, -1, -1):
         # 조상을 향해 거슬러 올라가기
         if parent[a][i] != parent[b][i]:
-            a = parent[a]
-            b = parent[b]
+            a = parent[a][i]
+            b = parent[b][i]
     # 이후에 부모가 찾고자 하는 조상
     return parent[a][0]
 
@@ -132,7 +132,7 @@ set_parent()
 m = int(input())
 
 for i in range(m):
-    a, b = map(int, ipnut().split())
+    a, b = map(int, input().split())
     print(lca(a, b))
         
 ```

@@ -109,22 +109,6 @@ A B D E C F G
 D B E A F C G
 D E B F G C A
 '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 

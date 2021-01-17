@@ -1,26 +1,37 @@
-def get_subset(arr):
-    N = len(arr)
-    subset = []
-    for i in range(1 << N):
-        line = []
-        for j in range(N):
-            tf = i & (1 << j)
-            if tf:
-                line.append(arr[j])
-        subset.append(line)
-    return subset
+def dfs(k, cost):
+    global answer
+    if k > N:
+        return
+    if k + days[k] > N + 1:
+        answer = max(answer, cost - costs[k])
+    else:
+        answer = max(answer, cost)
+    for i in graph[k]:
+        if visit[i]:
+            continue
+        visit[i] = 1
+        dfs(i, cost + costs[i])
+        visit[i] = 0
 
+answer = 0
+N = int(input())
+graph = [[] for _ in range(N+1)]
+costs = [0] * (N+1)
+visit = [0] * (N+1)
+days = [0] * (N+1)
+for i in range(N):
+    day, cost = map(int, input().split())
+    costs[i+1] = cost
+    days[i+1] = day
+    if i+day+1 > N:
+        continue
+    for j in range(i+day+1, N+1):
+        graph[i+1].append(j)
+for i in range(1, N+1):
+    visit = [0] * (N + 1)
+    dfs(i, costs[i])
 
-
-
-TC = int(input())
-T, M = [], []
-for _ in range(TC):
-    t, m = map(int, input().split())
-    T.append(t)
-    M.append(m)
-while True:
-    for i in range(len(T)-1,-1,-1):
+print(answer)
 
 
 

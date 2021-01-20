@@ -1,5 +1,5 @@
-from copy import deepcopy
 from itertools import combinations
+
 def Go(board):
     for i in range(N):
         y = 0
@@ -49,27 +49,8 @@ for y in range(H):
 
 visit = [0] * len(change_d)
 order = []
-#
-# def dfs(k, many):
-#     global answer
-#     if k == many:
-#         mid_board = deepcopy(board)
-#         for height, left, right in order:
-#             mid_board[height][left] = (1, right)
-#             mid_board[height][right] = (1, left)
-#         if Go(mid_board):
-#             print(many)
-#             sys.exit()
-#         return
-#     for i in range(len(change_d)):
-#         if visit[i]: continue
-#         if (change_d[i][0], change_d[i][1] - 1, change_d[i][1]) not in order and (change_d[i][0], change_d[i][2], change_d[i][2]+1) not in order:
-#             visit[i] = 1
-#             order.append(change_d[i])
-#             dfs(k+1, many)
-#             visit[i] = 0
-#             order.pop()
 answer = -1
+
 def find(k):
     global answer
     com = list(combinations(change_d, k))
@@ -80,7 +61,6 @@ def find(k):
                 flag = False
                 break
         if flag:
-            # mid_board = deepcopy(board)
             for height, left, right in com[i]:
                 board[height][left] = (1, right)
                 board[height][right] = (1, left)

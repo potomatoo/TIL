@@ -1,98 +1,58 @@
 from itertools import combinations
 
-def find_parent(parent, x):
-    if parent[x] != x:
-        parent[x] = find_parent(parent, parent[x])
-    return parent[x]
-
-def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
-    if a < b:
-        parent[b] = a
-    else:
-        parent[a] = b
+def dfs(k, com):
+    for v in graph[k]:
+        if visit[v]:
+            continue
+        visit[v] = 1
+        if v in com:
+            dfs(v, com)
 
 N = int(input())
 people = [0] + list(map(int, input().split()))
-graph = [[] for x in range(N+1)]
-parent = [x for x in range(N+1)]
+graph = []
+
 for i in range(1, N+1):
     info = list(map(int, input().split()))
-    for j in range(1, len(info)):
-        graph[i].append(info[j])
-        union_parent(parent, i, info[j])
+    graph.append(info[1:])
 
+graph = [[]] + graph
 area = [x for x in range(1, N+1)]
-
 answer = 1e9
 
-for k in range(1, (N//2)+1):
-    coms = list(combinations(area, k))
-
-    for com in range(len(coms)):
-        A = list(coms[com])
-        B = list(set(area) - set(coms[com]))
-        parent_flag = True
-        find_flag = True
+for k in range(1, N):
+    com = list(combinations(area, k))
+    for A in com:
+        A = list(A)
+        B = list(set(area) - set(A))
+        if len(A) + len(B) != N:
+            continue
         flag = True
-        for i in range(len(A)):
-            for j in range(len(A)):
-                if i == j:
-                    continue
-
-                if parent[A[i]] != parent[A[j]]:
-                    parent_flag = False
-                    break
-            if not parent_flag:
-                find_flag = False
-                break
-
-        if find_flag:
-            for i in range(len(B)):
-                for j in range(len(B)):
-                    if i == j:
-                        continue
-                    if parent[B[i]] != parent[B[j]]:
-                        parent_flag = False
-                        break
-                if not parent_flag:
-                    find_flag = False
-                    break
-
-        if find_flag:
-            for i in range(len(A)):
-                flagA = False
-                for j in range(len(A)):
-                    if i == j:
-                        continue
-                    if A[i] in graph[A[j]]:
-                        flagA = True
-                        break
-                if not flagA:
+        if len(A) > 1:
+            visit = [0] * (N+1)
+            dfs(A[0], A)
+            for a in A:
+                if not visit[a]:
                     flag = False
-                    break
 
-            for i in range(len(B)):
-                flagB = False
-                for j in range(len(B)):
-                    if i == j:
-                        continue
-                    if B[i] in graph[B[j]]:
-                        flagB = True
-                        break
-                if not flagB:
+        if len(B) > 1 and flag:
+            visit = [0] * (N + 1)
+            dfs(B[0], B)
+            for b in B:
+                if not visit[b]:
                     flag = False
-                    break
 
-            if flag:
-                peopleA = 0
-                peopleB = 0
-                for a in A:
-                    peopleA += people[a]
-                for b in B:
-                    peopleB += people[b]
-                answer = min(answer, abs(peopleA-peopleB))
+        if flag:
+            people_A = 0
+            people_B = 0
+            for a in A:
+                people_A += people[a]
+            for b in B:
+                people_B += people[b]
+            if abs(people_B - people_A) < answer:
+                result_b = B
+                result_a = A
+                answer = min(answer, abs(people_B-people_A))
 
 if answer == 1e9:
     print(-1)

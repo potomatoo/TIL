@@ -1,53 +1,35 @@
-def solution(p):
-    def is_correct(q):
-        stack = []
-        for i in range(len(q)):
-            if not stack:
-                stack.append(q[i])
+dy = [1, 0, -1]
+dx = [0, 1, -1]
+
+def solution(n):
+    answer = []
+    board = [[0 for _ in range(n)] for _ in range(n)]
+    number = 2
+    y, x = 0, 0
+    board[y][x] = 1
+
+    while True:
+        check = number
+        for i in range(3):
+            y += dy[i]
+            x += dx[i]
+            while 0 <= y < n and 0 <= x < n and not board[y][x]:
+                board[y][x] = number
+                number += 1
+                y += dy[i]
+                x += dx[i]
+            y -= dy[i]
+            x -= dx[i]
+        if n == 3:
+            break
+        if check == number:
+            break
+
+    for y in range(n):
+        for x in range(n):
+            if not board[y][x]:
                 continue
-            if stack[-1] == q[i]:
-                stack.append(q[i])
-            elif stack[-1] == '(' and q[i] == ')':
-                stack.pop()
-        if stack:
-            return False
-        else:
-            return True
+            answer.append(board[y][x])
+    return answer
 
-    def get_uv(q):
-        stack = [q[0]]
-        idx = 0
-        for i in range(1, len(q)):
-            if not stack:
-                break
-            if stack[-1] == q[i]:
-                stack.append(q[i])
-            else:
-                idx = i
-                stack.pop()
-        u = q[:idx + 1]
-        v = q[idx + 1:]
-        return u, v
-
-    def change_correct(q):
-        if not q:
-            return ''
-        u, v = get_uv(q)
-
-        if is_correct(u):
-            return u + change_correct(v)
-        else:
-            answer = '('
-            answer += change_correct(v)
-            answer += ')'
-
-            for p in u[1:len(u)-1]:
-                if p == '(':
-                    answer += ')'
-                else:
-                    answer += ')'
-            return answer
-    return change_correct(p)
-print(solution("(()())()"))
-print(solution(")("))
-print(solution("()))((()"))
+print(solution(3))

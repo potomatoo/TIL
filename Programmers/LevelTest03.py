@@ -1,27 +1,24 @@
-from collections import deque
-def solution(begin, target, words):
-    Q = deque()
-    Q.append((begin, 0))
-    visit = [0] * len(words)
-    flag = False
-    while Q:
-        now, cnt = Q.popleft()
-        if now == target:
-            flag = True
-            break
-        for i in range(len(words)):
-            if visit[i]:
-                continue
-            check = 0
-            for j in range(len(words[i])):
-                if words[i][j] == now[j]:
-                    check += 1
-            if check == len(now) - 1:
-                visit[i] = 1
-                Q.append((words[i], cnt + 1))
-    if flag:
-        return cnt
-    else:
-        return 0
-print(solution('hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log', 'cog']))
-print(solution('hit', 'cog', ['hot', 'dot', 'dog', 'lot', 'log']))
+def solution(dirs):
+    answer = 0
+    visit = []
+    dir_dic = {
+        'U': [-1, 0],
+        'D': [1, 0],
+        'L': [0, -1],
+        'R': [0, 1]
+    }
+    y, x = 5, 5
+    for dir in dirs:
+        ty = y + dir_dic[dir][0]
+        tx = x + dir_dic[dir][1]
+        if ty < 0 or tx < 0 or ty > 10 or tx > 10:
+            continue
+        if {(ty, tx), (y, x)} not in visit:
+            visit.append({(ty, tx), (y, x)})
+            answer += 1
+        y, x = ty, tx
+    return answer
+
+
+print(solution('ULURRDLLU'))
+print(solution('LULLLLLLU'))

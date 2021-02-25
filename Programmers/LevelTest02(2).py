@@ -1,54 +1,42 @@
-def is_right(s):
-    if s[0] == ')':
-        return False
-    stack = []
-    for i in range(len(s)):
-        if s[i] == ')' and stack:
-            stack.pop()
-        else:
-            stack.append(s[i])
-    if stack:
-        return False
-    return True
+language_dic = {
+    'cpp': 0,
+    'java': 0,
+    'python': 0
+}
 
-def make_right(s):
-    if not s:
-        return s
-    left_cnt = 0
-    right_cnt = 0
-    u = ''
-    for i in range(len(s)):
-        if s[i] == '(':
-            left_cnt += 1
-            u += s[i]
-        else:
-            right_cnt += 1
-            u += s[i]
-        if left_cnt == right_cnt:
-            break
-    v = s[left_cnt*2:]
-    if is_right(u):
-        v = make_right(v)
-        return u + v
-    else:
-        v = make_right(v)
-        v = '(' + v
-        v += ')'
-        new_u = u[1:-1]
-        u = ''
-        for i in range(len(new_u)):
-            if new_u[i] == '(':
-                u += ')'
-            else:
-                u += '('
-        return v + u
+field_dic = {
+    'backend': 0,
+    'frontend': 0,
+}
 
-def solution(p):
-    if is_right(p):
-        return p
-    return make_right(p)
+level_dic = {
+    'junior': 0,
+    'senior': 0
+}
 
+food_dic = {
+    'chicken': 0,
+    'pizza': 0
+}
+def solution(info, query):
+    answer = []
+    query_ls = []
+    for i in range(len(info)):
+        info_ls = info[i].split()
+        language_dic[info_ls[0]] += 1
+        field_dic[info_ls[0]] += 1
+        level_dic[info_ls[0]] += 1
+        food_dic[info_ls[0]] += 1
+    for i in range(len(query)):
+        mid_query = query[i].split(' and ')
+        remain = mid_query[3].split()
+        mid_query = mid_query[:3]
+        for j in range(2):
+            mid_query.append(remain[j])
+        query_ls.append(mid_query)
+    print(query_ls)
+    return answer
 
-print(solution("(()())()"))
-print(solution(")("))
-print(solution("()))((()"))
+print(solution(["java backend junior pizza 150","python frontend senior chicken 210","python frontend senior chicken 150","cpp backend senior pizza 260","java backend junior chicken 80","python backend senior chicken 50"]
+               , ["java and backend and junior and pizza 100","python and frontend and senior and chicken 200","cpp and - and senior and pizza 250","- and backend and senior and - 150","- and - and - and chicken 100","- and - and - and - 150"]))
+

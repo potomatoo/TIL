@@ -1,24 +1,24 @@
-def solution(dirs):
-    answer = 0
-    visit = []
-    dir_dic = {
-        'U': [-1, 0],
-        'D': [1, 0],
-        'L': [0, -1],
-        'R': [0, 1]
-    }
-    y, x = 5, 5
-    for dir in dirs:
-        ty = y + dir_dic[dir][0]
-        tx = x + dir_dic[dir][1]
-        if ty < 0 or tx < 0 or ty > 10 or tx > 10:
-            continue
-        if {(ty, tx), (y, x)} not in visit:
-            visit.append({(ty, tx), (y, x)})
+answer = 0
+def solution(n):
+    global answer
+    v_col = [0] * n
+    up_cross = [0] * ((2*n)-1)
+    down_cross = [0] * ((2*n)-1)
+    def n_queen(row):
+        global answer
+        if row == n:
             answer += 1
-        y, x = ty, tx
+        for col in range(n):
+            if not v_col[col] and not up_cross[col+row] and not down_cross[n+row-col-1]:
+                v_col[col] = 1
+                up_cross[col+row] = 1
+                down_cross[n+row-col-1] = 1
+                n_queen(row+1)
+                v_col[col] = 0
+                up_cross[col + row] = 0
+                down_cross[n + row-col - 1] = 0
+    n_queen(0)
     return answer
 
 
-print(solution('ULURRDLLU'))
-print(solution('LULLLLLLU'))
+print(solution(4))

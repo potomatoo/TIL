@@ -1,19 +1,20 @@
-def solution(n, times):
+def solution(n, results):
     answer = 0
-    left = 1
-    right = max(times) * n
-    while left <= right:
-        mid = (left + right) // 2
-        pass_people = 0
-        for time in times:
-            pass_people += (mid // time)
-        if pass_people >= n:
-            answer = mid
-            right = mid - 1
+    win_dic = dict()
+    lose_dic = dict()
+    for win, lose in results:
+        if win not in win_dic:
+            win_dic[win] = [lose]
         else:
-            left = mid + 1
+            win_dic[win].append(lose)
+        if lose not in lose_dic:
+            lose_dic[lose] = [win]
+        else:
+            lose_dic[lose].append(win)
+    print(win_dic)
+    print(lose_dic)
     return answer
 
 
-print(solution(6, [7, 10]))
+print(solution(5, [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]))
 

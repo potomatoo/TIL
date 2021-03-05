@@ -1,24 +1,20 @@
-answer = 0
-def solution(n):
-    global answer
-    v_col = [0] * n
-    up_cross = [0] * ((2*n)-1)
-    down_cross = [0] * ((2*n)-1)
-    def n_queen(row):
-        global answer
-        if row == n:
+def solution(A, B):
+    answer = 0
+    N = len(A)
+    A.sort()
+    B.sort()
+    a = 0
+    b = 0
+    while a != len(A) and b != len(B):
+        if A[a] < B[b]:
+            a += 1
+            b += 1
             answer += 1
-        for col in range(n):
-            if not v_col[col] and not up_cross[col+row] and not down_cross[n+row-col-1]:
-                v_col[col] = 1
-                up_cross[col+row] = 1
-                down_cross[n+row-col-1] = 1
-                n_queen(row+1)
-                v_col[col] = 0
-                up_cross[col + row] = 0
-                down_cross[n + row-col - 1] = 0
-    n_queen(0)
+            continue
+        else:
+            b += 1
     return answer
 
 
-print(solution(4))
+print(solution([5,1,3,7], [2,2,6,8]))
+print(solution([2,2,2,2], [1,1,1,1]))

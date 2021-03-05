@@ -1,20 +1,30 @@
-def solution(n, results):
-    answer = 0
-    win_dic = dict()
-    lose_dic = dict()
-    for win, lose in results:
-        if win not in win_dic:
-            win_dic[win] = [lose]
+def solution(genres, plays):
+    answer = []
+    time_dic = dict()
+    order_dic = dict()
+    for i in range(len(genres)):
+        if genres[i] not in time_dic:
+            time_dic[genres[i]] = plays[i]
+            order_dic[genres[i]] = [(i, plays[i])]
         else:
-            win_dic[win].append(lose)
-        if lose not in lose_dic:
-            lose_dic[lose] = [win]
+            time_dic[genres[i]] += plays[i]
+            order_dic[genres[i]].append((i, plays[i]))
+
+    time = []
+    for key, value in time_dic.items():
+        time.append((key, value))
+    time.sort(key=lambda x: -x[1])
+    for genre, t in time:
+        cnt = 0
+        order_dic[genre].sort(key=lambda x: [-x[1], x[0]])
+        if len(order_dic[genre]) > 2:
+            while cnt != 2:
+                answer.append(order_dic[genre][cnt][0])
+                cnt += 1
         else:
-            lose_dic[lose].append(win)
-    print(win_dic)
-    print(lose_dic)
+            for kk in order_dic[genre]:
+                answer.append(kk[0])
     return answer
 
-
-print(solution(5, [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]))
+print(solution(["classic", "pop", "classic", "classic", "pop"], [500, 600, 150, 800, 2500]))
 

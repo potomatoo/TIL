@@ -1,20 +1,20 @@
-def solution(skill, skill_trees):
-    answer = 0
-    for skill_tree in skill_trees:
-        now_index = -1
-        flag = True
-        for i in range(len(skill_tree)):
-            if skill_tree[i] not in skill:
-                continue
-            if skill.index(skill_tree[i]) != now_index+1:
-                flag = False
-                break
-            now_index = skill.index(skill_tree[i])
-        if flag:
-            answer += 1
-    return answer
+def solution(citations):
+    k = max(citations)
+    while k:
+        up_check = 0
+        down_check = 0
+        for citation in citations:
+            if citation >= k:
+                up_check += 1
+            elif citation < k:
+                down_check += 1
+        if up_check >= k and down_check <= k:
+            return k
+        k -= 1
+    return 0
 
 
-print(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"]))
+
+print(solution([3, 0, 6, 1, 5]))
 
 

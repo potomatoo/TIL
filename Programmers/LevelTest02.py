@@ -1,22 +1,36 @@
-from itertools import combinations
-def is_prime(k):
-    if k == 1:
-        return False
-    elif k == 2:
-        return True
-    for i in range(2, k):
-        if not k % i:
-            return False
-    return True
-
-def solution(nums):
+from collections import deque
+def solution(cacheSize, cities):
+    if not cacheSize:
+        return len(cities) * 5
+    for i in range(len(cities)):
+        cities[i] = cities[i].upper()
     answer = 0
-    for com in combinations(nums, 3):
-        if is_prime(sum(com)):
-            answer += 1
+    Q = deque()
+    for i in range(len(cities)):
+        if len(Q) == cacheSize:
+            if cities[i] in Q:
+                Q.remove(cities[i])
+                Q.append(cities[i])
+                answer += 1
+            else:
+                Q.popleft()
+                Q.append(cities[i])
+                answer += 5
+        else:
+            if cities[i] in Q:
+                Q.remove(cities[i])
+                Q.append(cities[i])
+                answer += 1
+            else:
+                Q.append(cities[i])
+                answer += 5
     return answer
 
-print(solution([1, 2, 3, 4]))
-print(solution([1, 2, 7, 6, 4]))
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"]))
+print(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"]))
+print(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"]))
+print(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"]))
+print(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"]))
+print(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"]))
 
 

@@ -1,25 +1,13 @@
-def solution(skill, skill_trees):
-    answer = 0
-    for skill_tree in skill_trees:
-        check = []
-        flag = True
-        for i in range(len(skill_tree)):
-            if skill_tree[i] not in skill:
-                continue
-            else:
-                if not check:
-                    if skill_tree[i] != skill[0]:
-                        flag = False
-                        break
-                    check.append(skill_tree[i])
-                else:
-                    if skill.index(check[-1]) + 1 != skill.index(skill_tree[i]):
-                        flag = False
-                        break
-                    else:
-                        check.append(skill_tree[i])
+def solution(nums):
+    N = len(nums) // 2
+    nums = list(set(nums))
+    if N < len(nums):
+        return N
+    else:
+        return len(nums)
 
-        if flag:
-            answer += 1
 
-    return answer
+
+print(solution([3,1,2,3]))
+print(solution([3,3,3,2,2,4]))
+print(solution([3,3,3,2,2,2]))

@@ -1,18 +1,18 @@
 def solution(A, B):
     answer = 0
-    N = len(A)
     A.sort()
     B.sort()
-    a = 0
-    b = 0
-    while a != len(A) and b != len(B):
-        if A[a] < B[b]:
-            a += 1
-            b += 1
+    N = len(A)
+    idx_A = 0
+    idx_B = 0
+    while N:
+        if A[idx_A] < B[idx_B]:
+            idx_A += 1
+            idx_B += 1
             answer += 1
-            continue
         else:
-            b += 1
+            idx_B += 1
+        N -= 1
     return answer
 
 

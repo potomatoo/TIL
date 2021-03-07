@@ -11,4 +11,4 @@ def solution(n, k):
         k = remainder
     return answer_list
 
-print(solution(20, 5))
+print(solution(100, 5))

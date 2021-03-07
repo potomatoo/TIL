@@ -1,20 +1,30 @@
-def solution(citations):
-    k = max(citations)
-    while k:
-        up_check = 0
-        down_check = 0
-        for citation in citations:
-            if citation >= k:
-                up_check += 1
-            elif citation < k:
-                down_check += 1
-        if up_check >= k and down_check <= k:
-            return k
-        k -= 1
-    return 0
+def solution(n, t, m, p):
+    answer = ''
+    def trans_n(num, k):
+        order = '0123456789ABCDEF'
+        if num < k:
+            return order[num]
+        trans = ''
+        while num // k >= 1:
+            remain = order[num % k]
+            num = num // k
+            trans = remain + trans
+            if num < k:
+                trans = order[num] + trans
+        return trans
+    mid_answer = ''
+    for i in range(m*t):
+        mid_answer += trans_n(i, n)
+
+    for i in range(p-1, m*t, m):
+        answer += mid_answer[i]
+
+    return answer
 
 
 
-print(solution([3, 0, 6, 1, 5]))
+print(solution(2, 4, 2, 1))
+print(solution(16, 16, 2, 1))
+print(solution(16, 16, 2, 2))
 
 

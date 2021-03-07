@@ -1,17 +1,20 @@
-def solution(N, stages):
-    mid_answer = [(0, 0)] * (N+1)
-    people = len(stages)
-    for i in range(1, N+1):
-        if people == 0:
-            mid_answer[i] = (i, 0)
-            continue
-        mid_answer[i] = (i, (stages.count(i)/people))
-        people -= stages.count(i)
-    mid_answer = sorted(mid_answer[1:], key=lambda x:[-x[1], x[0]])
-    answer = []
-    for idx, fail in mid_answer:
-        answer.append(idx)
+def solution(board, moves):
+    answer = 0
+    stack = []
+    for move in moves:
+        for y in range(len(board)):
+            if board[y][move-1]:
+                if stack:
+                    if stack[-1] != board[y][move-1]:
+                        stack.append(board[y][move-1])
+                    else:
+                        stack.pop()
+                        answer += 2
+                else:
+                    stack.append(board[y][move - 1])
+                board[y][move - 1] = 0
+                break
+
     return answer
 
-print(solution(5, [2, 1, 2, 6, 2, 4, 3, 3]))
-print(solution(4, [4,4,4,4,4]))
+print(solution([[0,0,0,0,0],[0,0,1,0,3],[0,2,5,0,1],[4,2,4,4,2],[3,5,1,3,1]], [1,5,3,5,1,2,1,4]))

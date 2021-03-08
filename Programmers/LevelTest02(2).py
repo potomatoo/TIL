@@ -1,30 +1,19 @@
-def solution(n, t, m, p):
-    answer = ''
-    def trans_n(num, k):
-        order = '0123456789ABCDEF'
-        if num < k:
-            return order[num]
-        trans = ''
-        while num // k >= 1:
-            remain = order[num % k]
-            num = num // k
-            trans = remain + trans
-            if num < k:
-                trans = order[num] + trans
-        return trans
-    mid_answer = ''
-    for i in range(m*t):
-        mid_answer += trans_n(i, n)
+def solution(prices):
+    answer = []
+    for i in range(len(prices)-1):
+        cnt = 1
+        flag = True
+        for j in range(i+1, len(prices)):
+            if prices[i] > prices[j]:
+                answer.append(cnt)
+                flag = False
+                break
+            cnt += 1
+        if flag:
+            answer.append(cnt-1)
+    return answer + [0]
 
-    for i in range(p-1, m*t, m):
-        answer += mid_answer[i]
+print(solution([1, 2, 3, 2, 3]))
 
-    return answer
-
-
-
-print(solution(2, 4, 2, 1))
-print(solution(16, 16, 2, 1))
-print(solution(16, 16, 2, 2))
 
 

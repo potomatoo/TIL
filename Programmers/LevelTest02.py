@@ -1,33 +1,13 @@
-from itertools import combinations
-def solution(relation):
-    check = len(relation)
-    answer = []
-    col = [x for x in range(len(relation[0]))]
-    for k in range(1, len(relation[0])+1):
-        com = list(combinations(col, k))
-        for i in range(len(com)):
-            mid_check = set()
-            for y in range(check):
-                one_check = []
-                for j in range(len(com[i])):
-                    one_check.append(relation[y][com[i][j]])
-                mid_check.add(tuple(one_check))
+import numpy
+def solution(arr1, arr2):
+    arr1 = numpy.array(arr1)
+    arr2 = numpy.array(arr2)
+    arr3 = arr1.dot(arr2)
+    arr3 = arr3.tolist()
+    return arr3
 
-            if len(mid_check) == check:
-                if not answer:
-                    answer.append(com[i])
-                    continue
-                flag = True
-                for a in answer:
-                    if set(a).issubset(set(com[i])):
-                        flag = False
-                        break
-                if flag:
-                    answer.append(com[i])
-
-    return len(answer)
-
-print(solution([["100","ryan","music","2"],["200","apeach","math","2"],["300","tube","computer","3"],["400","con","computer","4"],["500","muzi","music","3"],["600","apeach","music","2"]]))
+print(solution([[1, 4], [3, 2], [4, 1]], [[3, 3], [3, 3]]))
+print(solution([[2, 3, 2], [4, 2, 4], [3, 1, 4]], [[5, 4, 3], [2, 4, 1], [3, 1, 1]]))
 
 
 

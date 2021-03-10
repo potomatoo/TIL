@@ -40,5 +40,4 @@ def solution(s):
         answer += " " * jump[-1]
 
     return answer
-
 print(solution("   asdfs Wsdfsdf asdfa  sadassass    d    "))

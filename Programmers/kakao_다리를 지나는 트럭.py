@@ -56,7 +56,7 @@ def solution(bridge_length, weight, truck_weights):
             time += 1
             continue
 
-        else:  . 
+        else:
             time += 1
             continue
 

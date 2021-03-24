@@ -1,6 +1,6 @@
 def find_cycle(y, x, d):
     global now_y, now_x, flag
-    if y == now_y and x == now_x and d > 2:
+    if y == now_y and x == now_x and d > 3:
         flag = True
         return
     for i in range(4):
@@ -8,11 +8,11 @@ def find_cycle(y, x, d):
         tx = x + dx[i]
         if ty < 0 or ty > N-1 or tx < 0 or tx > M-1:
             continue
-        if ty == now_y and tx == now_x and d < 2:
+        if ty == now_y and tx == now_x and d < 3:
             continue
         if board[ty][tx] == board[now_y][now_x] and not visit[ty][tx]:
             visit[ty][tx] = 1
-            find_cycle(y, x, d+1)
+            find_cycle(ty, tx, d+1)
 
 dy = [-1, 1, 0, 0]
 dx = [0, 0, -1, 1]

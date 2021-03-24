@@ -1,5 +1,3 @@
-# 시간 초과 및 실패!
-
 def find_row_col(y, x):
     row = 0
     col = 0
@@ -33,13 +31,15 @@ def find_max():
     return now_max
 
 def find_near(y, x):
+    global visit
     near = []
     for i in range(4):
         ty = y + dy[i]
         tx = x + dx[i]
         if ty < 0 or ty > N-1 or tx < 0 or tx > N-1:
             continue
-        near.append((ty, tx))
+        if not visit[ty][tx]:
+            near.append((ty, tx))
     return near
 
 N = int(input())
@@ -52,9 +52,11 @@ dy = [-1, 1, 0, 0, -1, -1, 1, 1]
 dx = [0, 0, 1, -1, -1, 1, -1, 1]
 
 answer = 0
+visit = [[0 for _ in range(N)] for _ in range(N)]
 for y in range(N):
     for x in range(N):
         near = find_near(y, x)
+        visit[y][x] = 1
         for ny, nx in near:
             board[y][x], board[ny][nx] = board[ny][nx], board[y][x]
             now_max = find_max()

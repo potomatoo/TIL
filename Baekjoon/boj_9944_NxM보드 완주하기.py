@@ -3,7 +3,8 @@ sys.setrecursionlimit(10**5)
 
 def dfs(y, x, s, cnt):
     global ans, max_s
-
+    if cnt > ans:
+        return
     if s == max_s:
         ans = min(ans, cnt)
         return
@@ -11,7 +12,7 @@ def dfs(y, x, s, cnt):
         ty = y + dy[i]
         tx = x + dx[i]
         ss = s
-        while 0 <= ty < N and 0 <= tx < M and board[ty][tx] == '.' and not visit[ty][tx]:
+        while 0 <= ty < N and 0 <= tx < M and not visit[ty][tx] and board[ty][tx] == '.':
             visit[ty][tx] = 1
             ss += 1
             ty += dy[i]
@@ -42,7 +43,7 @@ while True:
     for _ in range(N):
         board.append(input())
 
-    ans = 1000000
+    ans = 1e9
     max_s = 0
     ball = []
     for y in range(N):
@@ -56,7 +57,7 @@ while True:
         dfs(y, x, 1, 0)
         visit[y][x] = 0
 
-    if ans == 1000000:
+    if ans == 1e9:
         ans = -1
     print('Case {}: {}'.format(TC, ans))
     TC += 1
